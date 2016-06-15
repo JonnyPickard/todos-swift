@@ -10,6 +10,8 @@ import UIKit
 
 class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var tblTodos: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -19,7 +21,21 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    // Returning to view
+    override func viewWillAppear(_ animated: Bool) {
+        tblTodos.reloadData();
+    }
+    
+    // UITableViewDelete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if(editingStyle == UITableViewCellEditingStyle.delete) {
+            todoMgr.todos.remove(at: indexPath.row)
+            tblTodos.reloadData();
+        }
+    }
+    
     
     // UITableViewDataSource
     // Create rows
